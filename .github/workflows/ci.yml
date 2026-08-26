@@ -1,0 +1,52 @@
+name: tantra-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install protocol and ML test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e 'protocol/python[dev]'
+          python -m pip install -e 'ml[dev]'
+      - name: Compile Python
+        run: python -m compileall -q protocol/python/tantra_protocol ml/tantra_ml
+      - name: Run tests
+        run: pytest -q protocol/python/tests ml/tests
+      - name: Protocol bitrate benchmark
+        run: python tools/benchmark_protocol.py
+      - name: Verify no committed secrets
+        shell: bash
+        run: |
+          ! git grep -nE '(ak-[A-Za-z0-9]{12,}|as-[A-Za-z0-9]{12,}|MODAL_TOKEN_SECRET[[:space:]]*=[[:space:]]*[^$<{])' -- ':!docs/SECURITY.md' ':!.env.example'
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Unit tests and debug APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon testDebugUnitTest assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tantra-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
