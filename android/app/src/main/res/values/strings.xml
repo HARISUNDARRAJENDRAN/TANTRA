@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TANTRA</string>
+    <string name="service_channel">TANTRA speech link</string>
+    <string name="service_description">Keeps the local speech transceiver active</string>
+</resources>

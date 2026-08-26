@@ -1,0 +1,3 @@
+-keep class ai.onnxruntime.** { *; }
+-keep @kotlinx.serialization.Serializable class ** { *; }
+-dontwarn ai.onnxruntime.**

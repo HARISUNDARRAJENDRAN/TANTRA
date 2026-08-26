@@ -1,0 +1,42 @@
+# Secrets
+.env
+.env.*
+!.env.example
+.modal.toml
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# ML data and weights
+ml/data/
+ml/runs/
+ml/artifacts/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.tflite
+*.zip
+
+# Android
+.gradle/
+**/build/
+local.properties
+*.jks
+*.keystore
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tantra.local/schemas/telemetry.schema.json",
+  "title": "TANTRA telemetry event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "device_id_hash",
+    "utterance_id",
+    "event",
+    "monotonic_ns"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "session_id": {"type": "string", "minLength": 8},
+    "device_id_hash": {"type": "string", "minLength": 8},
+    "utterance_id": {"type": "string", "minLength": 1},
+    "event": {
+      "enum": [
+        "speech_start",
+        "audio_frame_captured",
+        "asr_partial",
+        "stable_prefix_commit",
+        "speech_end",
+        "frame_tx",
+        "frame_rx",
+        "tts_enqueue",
+        "tts_inference_start",
+        "tts_inference_end",
+        "first_audio_sample",
+        "playback_complete",
+        "clock_probe"
+      ]
+    },
+    "monotonic_ns": {"type": "integer", "minimum": 0},
+    "wall_time_utc": {"type": "string", "format": "date-time"},
+    "language": {
+      "enum": ["hi", "gu", "mr", "kn", "ml", "ta", "te", "or", "bn", "en"]
+    },
+    "transport": {"enum": ["loopback", "wifi_tcp", "bluetooth_rfcomm", "embedded_uart"]},
+    "sequence": {"type": "integer", "minimum": 0},
+    "payload_bytes": {"type": "integer", "minimum": 0},
+    "token_count": {"type": "integer", "minimum": 0},
+    "audio_duration_ms": {"type": "number", "minimum": 0},
+    "model_pack_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "metadata": {"type": "object", "additionalProperties": true}
+  },
+  "additionalProperties": false
+}

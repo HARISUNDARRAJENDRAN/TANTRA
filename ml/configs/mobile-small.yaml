@@ -1,0 +1,26 @@
+seed: 17
+output_dir: /artifacts/asr-runs
+train_manifest: /data/manifests/train.jsonl
+dev_manifest: /data/manifests/dev.jsonl
+vocabulary: /data/manifests/vocab.json
+batch_size: 12
+workers: 6
+epochs: 45
+learning_rate: 0.0004
+weight_decay: 0.012
+warmup_steps: 1200
+gradient_accumulation: 4
+gradient_clip: 5.0
+data:
+  max_seconds: 12.0
+model:
+  language_count: 11
+  model_dim: 192
+  layers: 6
+  heads: 4
+  feed_forward_dim: 768
+  convolution_kernel: 15
+  dropout: 0.1
+  conv_channels: [48, 96, 144, 192]
+  conv_kernels: [10, 8, 4, 4]
+  conv_strides: [5, 4, 2, 2]

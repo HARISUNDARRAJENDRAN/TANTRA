@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tantra-ml"
+version = "0.1.0"
+description = "Training, export, quantization, packing, and evaluation for TANTRA"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26,<3",
+  "regex>=2024.5",
+  "PyYAML>=6.0",
+  "soundfile>=0.12",
+]
+
+[project.optional-dependencies]
+train = [
+  "torch>=2.4",
+  "torchaudio>=2.4",
+  "onnx>=1.16",
+  "onnxruntime>=1.20",
+  "jiwer>=3.0",
+  "tqdm>=4.66",
+  "safetensors>=0.4",
+  "transformers>=4.45",
+  "datasets>=3.0",
+]
+modal = ["modal>=0.73"]
+dev = ["pytest>=8.0", "mypy>=1.10", "ruff>=0.7"]
+all = ["tantra-ml[train,modal,dev]"]
+
+[project.scripts]
+tantra-build-vocab = "tantra_ml.text.vocabulary:main"
+tantra-train-asr = "tantra_ml.asr.train:main"
+tantra-export-asr = "tantra_ml.asr.export:main"
+tantra-eval-asr = "tantra_ml.asr.evaluate:main"
+tantra-align-tts = "tantra_ml.tts.align_manifest:main"
+tantra-train-tts = "tantra_ml.tts.train:main"
+tantra-export-tts = "tantra_ml.tts.export:main"
+tantra-eval-tts = "tantra_ml.tts.evaluate:main"
+tantra-build-pack = "tantra_ml.modelpack:main"
+tantra-smoke = "tantra_ml.smoke:main"
+tantra-prepare-hf = "tantra_ml.data.prepare_huggingface:main"
+tantra-split-manifest = "tantra_ml.data.split_manifest:main"
+tantra-validate-manifests = "tantra_ml.data.validate_manifests:main"
+tantra-pseudo-label = "tantra_ml.data.pseudo_label:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tantra_ml*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"

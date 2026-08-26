@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "targets": {
+    "app_bytes_excluding_models_max": 36700160,
+    "active_asr_bytes_max": 68157440,
+    "active_tts_bytes_max": 47185920,
+    "peak_rss_bytes_max": 440401920,
+    "idle_cpu_percent_max": 10.0,
+    "asr_partial_p95_ms_max": 500,
+    "asr_final_p95_ms_max": 750,
+    "tts_first_audio_p95_ms_max": 650,
+    "end_to_end_p95_ms_max": 1800,
+    "tts_rtf_max": 0.55
+  }
+}

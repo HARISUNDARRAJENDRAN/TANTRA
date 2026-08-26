@@ -1,0 +1,24 @@
+seed: 19
+output_dir: /artifacts/tts-runs
+train_manifest: /data/manifests/tts-train.jsonl
+dev_manifest: /data/manifests/tts-dev.jsonl
+vocabulary: /data/manifests/vocab.json
+batch_size: 4
+workers: 4
+epochs: 120
+learning_rate: 0.0002
+data:
+  sample_rate: 22050
+  mel_bins: 80
+  n_fft: 1024
+  hop_length: 256
+  win_length: 1024
+  max_seconds: 15.0
+model:
+  language_count: 11
+  hidden: 192
+  encoder_layers: 4
+  decoder_layers: 4
+  heads: 4
+  max_token_duration: 32
+  vocoder_channels: 256

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "commit", "model_pack_sha256", "device", "language", "metrics"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "commit": {"type": "string", "minLength": 7},
+    "model_pack_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "device": {
+      "type": "object",
+      "required": ["manufacturer", "model", "android", "soc"],
+      "properties": {
+        "manufacturer": {"type": "string"}, "model": {"type": "string"},
+        "android": {"type": "string"}, "soc": {"type": "string"}
+      }
+    },
+    "language": {"enum": ["hi", "gu", "mr", "kn", "ml", "ta", "te", "or", "bn", "en"]},
+    "metrics": {"type": "object", "additionalProperties": {"type": "number"}}
+  },
+  "additionalProperties": true
+}
